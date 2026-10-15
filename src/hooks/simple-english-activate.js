@@ -82,6 +82,7 @@ if (require.main === module) {
 }
 
 module.exports = {
+  main,
   FALLBACK_CONTEXT,
   MAX_CHARS,
   buildContext,

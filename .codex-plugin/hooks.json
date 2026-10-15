@@ -10,7 +10,8 @@
             "command": "[ -n \"${PLUGIN_ROOT}\" ] && node \"${PLUGIN_ROOT}/src/hooks/simple-english-activate.js\" || true",
             "timeout": 5,
             "statusMessage": "Loading Simple English...",
-            "additionalContextLimit": 0
+            "additionalContextLimit": 0,
+            "commandWindows": "node -e \"require(require('node:path').join(process.env.PLUGIN_ROOT, 'src/hooks/simple-english-activate.js')).main()\""
           }
         ]
       }

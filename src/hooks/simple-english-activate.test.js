@@ -31,16 +31,16 @@ function runHook(env) {
 }
 
 test('prefers the prompt under the plugin root', () => {
-  assert.equal(promptCandidates('/plugin', '/plugin/src/hooks')[0], '/plugin/prompts/system-prompt.md');
+  assert.equal(promptCandidates('/plugin', '/plugin/src/hooks')[0], path.join('/plugin', 'prompts', 'system-prompt.md'));
 });
 
 test('falls back to the repository layout without a plugin root', () => {
-  assert.equal(promptCandidates(undefined, '/repo/src/hooks')[0], '/repo/prompts/system-prompt.md');
+  assert.equal(promptCandidates(undefined, '/repo/src/hooks')[0], path.join('/repo', 'prompts', 'system-prompt.md'));
 });
 
 test('skips an unreadable candidate and reads the next one', (t) => {
-  if (process.getuid && process.getuid() === 0) {
-    t.skip('root can read mode 000 files');
+  if (process.platform === 'win32' || (process.getuid && process.getuid() === 0)) {
+    t.skip('POSIX mode 000 is not enforced on Windows or for root');
     return;
   }
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'se-read-'));

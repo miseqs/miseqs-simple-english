@@ -1,0 +1,50 @@
+{
+  "description": "Simple English lifecycle hooks for Claude Code.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "timeout": 5,
+            "statusMessage": "Loading Simple English...",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/src/hooks/simple-english-activate.js"
+            ]
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "timeout": 10,
+            "statusMessage": "Simple English: checking the file...",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/src/hooks/run-lint-hook.js"
+            ]
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "timeout": 10,
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/src/hooks/run-lint-hook.js"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

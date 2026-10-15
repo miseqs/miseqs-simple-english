@@ -15,42 +15,5 @@
     "ste",
     "asd-ste100"
   ],
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/src/hooks/simple-english-activate.js\"",
-            "timeout": 5,
-            "statusMessage": "Loading Simple English..."
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/src/hooks/lint_hook.py\"",
-            "timeout": 10,
-            "statusMessage": "Simple English: checking the file..."
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/src/hooks/lint_hook.py\"",
-            "timeout": 10
-          }
-        ]
-      }
-    ]
-  }
+  "hooks": "./.claude-plugin/hooks.json"
 }
